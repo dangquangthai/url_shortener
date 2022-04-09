@@ -1,0 +1,60 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  Exclude:
+    - 'Rakefile'
+    - 'config.ru'
+    - 'app/inputs/*'
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'spec/**/*'
+    - 'domains/*/spec/**/*'
+    - 'bin/**/*'
+    - 'lib/tasks/**/*'
+    - 'Gemfile'
+    - 'Guardfile'
+    - 'Rakefile'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  TargetRubyVersion: 2.6.1
+
+Rails:
+  Enabled: true
+
+Layout/LineLength:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Max: 9
+
+Metrics/PerceivedComplexity:
+  Max: 9
+
+Metrics/MethodLength:
+  Max: 15
+
+Metrics/AbcSize:
+  Max: 25
+
+Naming/PredicateName:
+  Enabled: false
+
+Rails/RedundantReceiverInWithOptions:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+
+Lint/MissingSuper:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
