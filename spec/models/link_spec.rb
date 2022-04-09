@@ -7,6 +7,5 @@ RSpec.describe Link, type: :model do
 
   describe '.validation' do
     it { is_expected.to validate_presence_of(:long_url) }
-    it { is_expected.to validate_uniqueness_of(:short_url) }
   end
 end
