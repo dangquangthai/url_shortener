@@ -115,7 +115,7 @@ RSpec.describe "Links", type: :request do
         before do
           expect(link.long_url).to eq 'http://localhost'
 
-          patch link_path(link), params: { link: { long_url: 'https://google.com.vn' }, id: link.id }
+          patch link_path(link), params: { link: { long_url: 'https://google.com.vn' } }
         end
 
         it 'updates link and redirect to /links' do
@@ -131,7 +131,7 @@ RSpec.describe "Links", type: :request do
         before do
           expect(link.long_url).to eq 'http://localhost'
 
-          patch link_path(link), params: { link: { long_url: '' }, id: link.id }
+          patch link_path(link), params: { link: { long_url: '' } }
         end
 
         it "dosen't update and response 422" do
@@ -142,6 +142,26 @@ RSpec.describe "Links", type: :request do
           expect(assigns(:link)).to be_a Link
           expect(flash[:error]).to eq 'Something went wrong, please review below errors'
         end
+      end
+    end
+  end
+
+  describe 'DELETE /update' do
+    include_examples 'Required user login', :delete, '/links/1'
+
+    context 'when user logged-in' do
+      let!(:link) { create(:link, user: user, long_url: 'http://localhost') }
+
+      before { sign_in user }
+
+      it 'delets link and redirect to /links' do
+        expect {
+          delete link_path(link)
+        }.to change { Link.count }.by(-1)
+
+        expect(response).to have_http_status(302)
+        expect(response).to redirect_to '/links'
+        expect(flash[:notice]).to eq 'Link was successfully deleted'
       end
     end
   end

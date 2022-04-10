@@ -2,7 +2,7 @@
 
 class LinksController < ApplicationController
   before_action :new_link, only: %i[new create]
-  before_action :link,     only: %i[edit update]
+  before_action :link,     only: %i[edit update destroy]
 
   def index
     @links = current_user.links.sorted_by_created_at.page(params[:page])
@@ -28,6 +28,11 @@ class LinksController < ApplicationController
     else
       render_template_if_error :edit
     end
+  end
+
+  def destroy
+    link.destroy!
+    redirect_to links_path, notice: 'Link was successfully deleted'
   end
 
   protected
