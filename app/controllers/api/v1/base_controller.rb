@@ -2,7 +2,7 @@
 
 module API
   module V1
-    class BaseController < ActionController::Base
+    class BaseController < ActionController::API
       include HasRescue
       include RequiredAPIKey
     end

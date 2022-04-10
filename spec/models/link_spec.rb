@@ -7,6 +7,23 @@ RSpec.describe Link, type: :model do
 
   describe '.validation' do
     it { is_expected.to validate_presence_of(:long_url) }
+
+    describe '#long_url' do
+      context 'correct url format' do
+        subject { build_stubbed(:link, long_url: 'https://localhost:3000') }
+
+        it { expect(subject.valid?).to be true }
+      end
+
+      context 'incorrect url format' do
+        subject { build_stubbed(:link, long_url: 'wrong url format') }
+
+        it do
+          expect(subject.valid?).to be false
+          expect(subject.errors.full_messages).to eq(["Long url is invalid"])
+        end
+      end
+    end
   end
 
   describe '.scopes' do

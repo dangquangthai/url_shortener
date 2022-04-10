@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe "API::V1::Links", type: :request do
-  describe 'GET /api/v1/links' do
-    let(:user) { create(:user) }
+  let(:user) { create(:user) }
 
+  describe 'GET /api/v1/links' do
     context 'Authorized' do
       before do
         create(:link, token: 'token1', long_url: 'https://github.com', user: user)
@@ -14,6 +14,7 @@ RSpec.describe "API::V1::Links", type: :request do
       end
 
       it 'return data' do
+        expect(response).to have_http_status(200)
         expect(json).to eq({
           'per_page' => 10,
           'current_page' => 1,
@@ -32,6 +33,47 @@ RSpec.describe "API::V1::Links", type: :request do
             }
           ]
         })
+      end
+    end
+  end
+
+  describe 'POST /api/v1/links' do
+    context 'Authorized' do
+      context 'when params is invalid' do
+        before do
+          expect do
+            post api_v1_links_path,
+              params: { link: { long_url: '' } },
+              headers: { 'HTTP_API_KEY' => user.api_key },
+              xhr: true
+          end.not_to change { Link.count }
+        end
+
+        it 'response 422 and error messages' do
+          expect(response).to have_http_status(422)
+          expect(json).to eq({'errors' => {"long_url" => ["is invalid", "can't be blank"]}})
+        end
+      end
+
+      context 'when params is valid' do
+        before do
+          expect do
+            post api_v1_links_path,
+              params: { link: { long_url: 'http://test.com' } },
+              headers: { 'HTTP_API_KEY' => user.api_key },
+              xhr: true
+          end.to change { Link.count }.by(1)
+        end
+
+        it 'response 200 and created link' do
+          new_link = Link.last
+          expect(response).to have_http_status(200)
+          expect(json).to eq({
+            'short_url' => new_link.short_url,
+            'long_url' => 'http://test.com',
+            'clicked_count' => 0
+          })
+        end
       end
     end
   end

@@ -4,7 +4,7 @@ class Link < ApplicationRecord
   belongs_to :user
   has_secure_token :token, length: 10
 
-  validates :long_url, presence: true
+  validates :long_url, format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]) }, presence: true
 
   scope :sorted_by_created_at, -> { order(:created_at) }
 
