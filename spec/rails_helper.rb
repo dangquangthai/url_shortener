@@ -62,10 +62,9 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  # For factory bot
   config.include FactoryBot::Syntax::Methods
-  config.include Devise::Test::IntegrationHelpers, type: :request
-  config.include RspecHelpers::HttpHelper, type: :request
+  config.include Devise::Test::IntegrationHelpers
+  config.include RspecHelpers::HttpHelper
 end
 
 Shoulda::Matchers.configure do |config|
