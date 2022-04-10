@@ -2,6 +2,7 @@
 
 class LinksController < ApplicationController
   before_action :new_link, only: %i[new create]
+  before_action :link,     only: %i[edit update]
 
   def new; end
 
@@ -15,6 +16,16 @@ class LinksController < ApplicationController
     end
   end
 
+  def edit; end
+
+  def update
+    if link.update(link_params)
+      redirect_to links_path, notice: 'Link was successfully updated'
+    else
+      render_template_if_error :edit
+    end
+  end
+
   protected
 
   def link_params
@@ -23,5 +34,9 @@ class LinksController < ApplicationController
 
   def new_link
     @new_link ||= current_user.links.build
+  end
+
+  def link
+    @link ||= current_user.links.find(params[:id])
   end
 end
