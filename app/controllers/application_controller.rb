@@ -5,4 +5,11 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
 
   include HasRescue
+
+  protected
+
+  def render_template_if_error(template)
+    flash.now[:error] = 'Something went wrong, please review below errors'
+    render template, status: :unprocessable_entity
+  end
 end

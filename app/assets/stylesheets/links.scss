@@ -1,0 +1,8 @@
+body.app {
+  &.links_new,
+  &.links_edit {
+    .container {
+      width: 500px;
+    }
+  }
+}
