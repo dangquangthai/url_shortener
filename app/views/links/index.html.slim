@@ -16,5 +16,6 @@ table.table.table-striped
         td= link.clicked_count
         td
           = link_to 'Edit', edit_link_path(link), class: 'btn btn-light'
+          = link_to 'Delete', link_path(link), class: 'btn btn-light', data: { confirm: 'Are you sure ?', method: :delete }
 
 = will_paginate @links
