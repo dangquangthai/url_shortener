@@ -2,7 +2,7 @@
 
 class Link < ApplicationRecord
   belongs_to :user
-  has_secure_token
+  has_secure_token :token, length: 10
 
   validates :long_url, presence: true
 
