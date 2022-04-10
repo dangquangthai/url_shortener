@@ -9,6 +9,10 @@ class Link < ApplicationRecord
   scope :sorted_by_created_at, -> { order(:created_at) }
 
   def short_url
-    "not implemented yet #{token}"
+    Rails.application.routes.url_helpers.shorten_url token: token
+  end
+
+  def clicked_count_increasing!
+    update!(clicked_count: clicked_count + 1)
   end
 end

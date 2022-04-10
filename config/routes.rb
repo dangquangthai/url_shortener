@@ -4,4 +4,5 @@ Rails.application.routes.draw do
 
   root to: 'links#index'
   resources :links
+  get ':token' => 'shorten#index', as: :shorten
 end

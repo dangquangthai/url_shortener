@@ -18,4 +18,23 @@ RSpec.describe Link, type: :model do
       end
     end
   end
+
+  describe '#clicked_count_increasing!' do
+    subject { create(:link) }
+
+    before { expect(subject.clicked_count).to eq 0 }
+
+    it 'increases clicked_count to 1' do
+      subject.clicked_count_increasing!
+      expect(subject.reload.clicked_count).to eq 1
+    end
+  end
+
+  describe '#short_url' do
+    subject { build_stubbed(:link, token: 'this_is_mocked_token') }
+
+    it 'return shorten url' do
+      expect(subject.short_url).to eq 'http://localhost:3000/this_is_mocked_token'
+    end
+  end
 end
