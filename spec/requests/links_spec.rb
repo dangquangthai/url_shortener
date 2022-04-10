@@ -40,7 +40,7 @@ RSpec.describe "Links", type: :request do
     context 'when user logged-in' do
       before { sign_in user }
 
-      context 'when params is not given' do
+      context 'when params is not present' do
         it 'response 400' do
           post links_path
 
@@ -50,7 +50,7 @@ RSpec.describe "Links", type: :request do
         end
       end
 
-      context 'when params is given' do
+      context 'when params is present' do
         context 'when params is valid' do
           before do
             expect {

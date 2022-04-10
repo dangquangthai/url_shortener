@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Shortens", type: :request do
   describe "GET /index" do
-    context 'when token was given' do
+    context 'when token is present' do
       let(:link) { build_stubbed(:link, long_url: 'https://github.com', token: 'this_is_mocked_token') }
 
       before do
