@@ -1,5 +1,4 @@
 h3 Edit link
 
 = simple_form_for @link, url: link_path(@link), method: :patch do |f|
-  = f.input :long_url
-  = f.submit 'Save', class: 'btn btn-primary', 'data-disable-with' => 'Saving ...'
+  = render 'form', f: f

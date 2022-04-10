@@ -14,6 +14,7 @@ RSpec.describe "Links", type: :request do
 
         expect(response).to have_http_status(200)
         expect(response).to render_template('links/index')
+        expect(assigns(:links)).to be_a ActiveRecord::AssociationRelation
       end
     end
   end
@@ -129,7 +130,7 @@ RSpec.describe "Links", type: :request do
       context 'when params is invalid' do
         before do
           expect(link.long_url).to eq 'http://localhost'
-          
+
           patch link_path(link), params: { link: { long_url: '' }, id: link.id }
         end
 

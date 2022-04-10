@@ -1,5 +1,4 @@
 h3 New link
 
 = simple_form_for @new_link, url: links_path, method: :post do |f|
-  = f.input :long_url
-  = f.submit 'Save', class: 'btn btn-primary', 'data-disable-with' => 'Saving ...'
+  = render 'form', f: f

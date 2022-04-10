@@ -1,6 +1,8 @@
 body.app {
   &.links_new,
-  &.links_edit {
+  &.links_create,
+  &.links_edit,
+  &.links_update, {
     .container {
       width: 500px;
     }

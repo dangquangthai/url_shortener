@@ -1,2 +1,20 @@
-|
-  hello world!!!
+= link_to 'New link', new_link_path, class: 'btn btn-primary mb-3'
+
+table.table.table-striped
+  thead
+    tr
+      th Short URL
+      th Long URL
+      th Clicked Count
+      th 
+
+  tbody
+    - @links.each do |link|
+      tr
+        td= link.short_url
+        td= link.long_url
+        td= link.clicked_count
+        td
+          = link_to 'Edit', edit_link_path(link), class: 'btn btn-light'
+
+= will_paginate @links

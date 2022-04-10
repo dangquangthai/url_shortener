@@ -4,6 +4,10 @@ class LinksController < ApplicationController
   before_action :new_link, only: %i[new create]
   before_action :link,     only: %i[edit update]
 
+  def index
+    @links = current_user.links.sorted_by_created_at.page(params[:page])
+  end
+
   def new; end
 
   def create

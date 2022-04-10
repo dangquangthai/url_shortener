@@ -9,4 +9,5 @@ html
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   body class="app #{controller_name}_#{action_name}"
-    = yield
+    .container.mt-3.mb-3
+      = yield

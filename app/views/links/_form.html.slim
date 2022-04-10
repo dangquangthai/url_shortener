@@ -1,0 +1,9 @@
+- # Required variable: f
+
+= f.input :long_url
+
+.row
+  .col-6
+    = f.submit 'Save', class: 'btn btn-primary', 'data-disable-with' => 'Saving ...'
+  .col-6.text-end
+    = link_to 'Back', links_path, class: 'btn btn-light'
