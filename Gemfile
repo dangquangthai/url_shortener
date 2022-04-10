@@ -28,6 +28,7 @@ gem 'jbuilder', '~> 2.7'
 
 # For authentication
 gem 'devise'
+gem 'rack-cors'
 
 gem 'slim'
 gem 'simple_form'
