@@ -162,6 +162,8 @@ RSpec.describe "Links", type: :request do
         expect(response).to have_http_status(302)
         expect(response).to redirect_to '/links'
         expect(flash[:notice]).to eq 'Link was successfully deleted'
+
+        expect { link.reload }.to raise_error ActiveRecord::RecordNotFound
       end
     end
   end
