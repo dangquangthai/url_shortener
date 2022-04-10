@@ -3,10 +3,13 @@
 module HasRescue
   extend ActiveSupport::Concern
 
+  class Unauthorized < StandardError; end
+
   included do
     rescue_from StandardError,                      with: :internal_server_error
     rescue_from ActionController::ParameterMissing, with: :bad_request
     rescue_from ActiveRecord::RecordNotFound,       with: :not_found
+    rescue_from Unauthorized,                       with: :unauthorized
 
     protected
 
@@ -25,6 +28,10 @@ module HasRescue
 
     def not_found
       json_response({ error: 'Resource not found' }, :not_found)
+    end
+
+    def unauthorized
+      json_response({ error: 'Unauthorized' }, :unauthorized)
     end
 
     def raise_execption_to_dev_team(execption)

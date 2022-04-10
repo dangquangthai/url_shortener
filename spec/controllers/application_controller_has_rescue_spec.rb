@@ -57,4 +57,20 @@ RSpec.describe ApplicationController, type: :controller do
       expect(json).to eq({ 'error' => 'Catcha!!!' })
     end
   end
+
+  describe '#unauthorized' do
+    controller do
+      def index
+        raise HasRescue::Unauthorized
+      end
+    end
+
+    it 'response 401' do
+      get :index
+
+      expect(response).to have_http_status(401)
+      expect(response.content_type).to eq 'application/json; charset=utf-8'
+      expect(json).to eq({ 'error' => 'Unauthorized' })
+    end
+  end
 end

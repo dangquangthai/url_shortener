@@ -5,4 +5,10 @@ Rails.application.routes.draw do
   root to: 'links#index'
   resources :links
   get ':token' => 'shorten#index', as: :shorten
+
+  scope :api, as: :api, module: :api do
+    scope :v1, as: :v1, module: :v1 do
+      resources :links, only: %i[index create]
+    end
+  end
 end
